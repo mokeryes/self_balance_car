@@ -23,6 +23,11 @@ void mpu6050_reset(void);
  */
 bool mpu6050_mode_sleep(int mode);
 
-void mpu6050_set_memory_bank(uint8_t bank, bool prefetch_enabled, bool user_bank);
+void mpu6050_set_memory_bank(uint8_t bank, bool prefetch_enabled,
+                             bool user_bank);
 
 void mpu6050_set_memory_start_address(uint8_t address);
+
+uint8_t mpu6050_read_memory(void);
+
+bool get_otp_bank_valid(void);
