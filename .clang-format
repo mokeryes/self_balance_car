@@ -1,7 +1,0 @@
-BasedOnStyle: Google
-IndentWidth: 4
-
-# 不要给头文件排序
-SortIncludes: false
-# 列的最大长度是 260
-ColumnLimit: 100
