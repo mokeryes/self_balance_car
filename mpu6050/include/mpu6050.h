@@ -8,9 +8,9 @@
 #define MPU6050_PIN_SCL 21
 #define MPU6050_PIN_SDA 22
 #define MPU6050_PIN_CS 23
-#define MPU6050_FREQ 100000
+#define MPU6050_FREQ 400000
 
-/* MPU6050 REGS */
+/* MPU6050 BASIC REGS */
 #define MPU6050_ADDR 0x68
 #define MPU6050_WHO_AM_I 0x75
 #define MPU6050_PWR_MGMT_1 0x6B
@@ -24,10 +24,9 @@
 #define MPU6050_GYRO_OUT 0x43
 #define MPU6050_TEMP_OUT 0x41
 
-#define MPU6050_SELF_TEST_X 0x0D
-#define MPU6050_SELF_TEST_Y 0x0E
-#define MPU6050_SELF_TEST_Z 0x0F
-#define MPU6050_SELF_TEST_A 0x10
+/* DMP REGS */
+#define MPU6050_BANK_SEL 0x6D
+#define MPU6050_MEM_START_ADDR 0x6E
 
 typedef struct {
     i2c_master_bus_config_t bus_cfg;

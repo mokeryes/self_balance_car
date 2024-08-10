@@ -19,11 +19,5 @@ void app_main(void) {
     };
     mpu6050_init(&mpu6050);
     mpu6050_enable();
-    uint16_t accel_data_raw[3] = {0x00};
-    while (true) {
-        mpu6050_read_gyro_raw(accel_data_raw);
-        printf("%u, %u, %u\n", accel_data_raw[0], accel_data_raw[1], accel_data_raw[2]);
-        printf("%f\n", mpu6050_read_temp());
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
+    mpu6050_dmp_init();
 }

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "/Users/moker/Projects/ESP32/self_balance_car/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}
