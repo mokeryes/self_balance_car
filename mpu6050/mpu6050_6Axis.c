@@ -37,3 +37,15 @@ uint8_t mpu6050_read_memory() { return usei2c_read_reg(MPU6050_MEM); }
 bool get_otp_bank_valid() {
     return (usei2c_read_bit(MPU6050_XG_OFFS_TC, 0) ? true : false);
 }
+
+int8_t get_x_gyro_offset_tc() {
+    return (int8_t)usei2c_read_bits(MPU6050_XG_OFFS_TC, 6, 6);
+}
+
+int8_t get_y_gyro_offset_tc(void) {
+    return (int8_t)usei2c_read_bits(MPU6050_YG_OFFS_TC, 6, 6);
+}
+
+int8_t get_z_gyro_offset_tc(void) {
+    return (int8_t)usei2c_read_bits(MPU6050_ZG_OFFS_TC, 6, 6);
+}

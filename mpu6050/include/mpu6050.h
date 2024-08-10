@@ -28,7 +28,9 @@
 #define MPU6050_BANK_SEL 0x6D
 #define MPU6050_MEM_START_ADDR 0x6E
 #define MPU6050_MEM 0x6F
-#define MPU6050_XG_OFFS_TC 0x00
+#define MPU6050_XG_OFFS_TC 0x00  //[7] PWR_MODE, [6:1] XG_OFFS_TC, [0] OTP_BNK_VLD
+#define MPU6050_YG_OFFS_TC 0x01  //[7] PWR_MODE, [6:1] YG_OFFS_TC, [0] OTP_BNK_VLD
+#define MPU6050_ZG_OFFS_TC 0x02  //[7] PWR_MODE, [6:1] ZG_OFFS_TC, [0] OTP_BNK_VLD
 
 typedef struct {
     i2c_master_bus_config_t bus_cfg;

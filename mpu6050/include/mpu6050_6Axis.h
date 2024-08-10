@@ -77,3 +77,18 @@ uint8_t mpu6050_read_memory(void);
  *        return false if otp bank is invalid.
  */
 bool get_otp_bank_valid(void);
+
+/*
+ * @brief Return offset of x axis gyroscope.
+ */
+int8_t get_x_gyro_offset_tc(void);
+
+/*
+ * @brief Return offset of y axis gyroscope.
+ */
+int8_t get_y_gyro_offset_tc(void);
+
+/*
+ * @brief Return offset of z axis gyroscope.
+ */
+int8_t get_z_gyro_offset_tc(void);
