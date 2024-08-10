@@ -1,1 +1,0 @@
-/Users/moker/Projects/ESP32/self_balance_car/components/mbedtls/mbedtls/library/psa_crypto_driver_wrappers_no_static.c
