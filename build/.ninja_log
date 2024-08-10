@@ -994,3 +994,5 @@
 15478	15562	1723257945888212168	/Users/moker/Projects/ESP32/self_balance_car/build/.bin_timestamp	4869529ec84df29f
 15562	15590	1723257945888610876	esp-idf/esptool_py/CMakeFiles/app_check_size	20e8e27c0d58dda7
 15562	15590	1723257945888610876	/Users/moker/Projects/ESP32/self_balance_car/build/esp-idf/esptool_py/CMakeFiles/app_check_size	20e8e27c0d58dda7
+17	25	1723258569647538110	CMakeFiles/clean.additional	223e4f5b52a0b8e3
+25	91	1723258569655128776	clean	1f0117926fe85a19
