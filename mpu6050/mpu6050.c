@@ -17,14 +17,13 @@ esp_err_t mpu6050_dmp_init(void) {
     mpu6050_mode_sleep(UNSET);
 
     /* Get MPU hardware revision */
-    mpu6050_set_memory_bank(0x10, true, true);
-    mpu6050_set_memory_start_address(0x06);
-    // printf("%x\n", mpu6050_read_memory());
-    mpu6050_set_memory_bank(0x00, false, false);
+    mpu6050_set_memory_bank(0x10, true, true);  // Select number of 0x10 memory bank
+    mpu6050_set_memory_start_address(0x06);     // Set offset is 0x06
+    mpu6050_read_memory();  // Read data from memory bank 0x10 offset 0x06
+    mpu6050_set_memory_bank(0x00, false, false);  // Select numbder of 0x00 memory bank
 
     /* Check OTP bank valid */
-    get_otp_bank_valid() == true ? printf("OTP valid.\n")
-                                 : printf("OTP invalid.\n");
+    get_otp_bank_valid() == true ? printf("OTP valid.\n") : printf("OTP invalid.\n");
 
     return ret;
 }
@@ -36,8 +35,7 @@ double mpu6050_read_temp(void) {
 
     esp_err_t ret = usei2c_read_reg_burst(MPU6050_TEMP_OUT, buffer, 2);
     if (ret != ESP_OK) {
-        ESP_LOGE(MPU6050_LOG_TAG,
-                 "Read temperature data error, error code: %s.",
+        ESP_LOGE(MPU6050_LOG_TAG, "Read temperature data error, error code: %s.",
                  esp_err_to_name(ret));
         return temp;
     }
@@ -73,8 +71,7 @@ esp_err_t mpu6050_read_accel_raw(uint16_t *accel_data_raw) {
 
     ret = usei2c_read_reg_burst(MPU6050_ACCEL_OUT, buffer, 6);
     if (ret != ESP_OK) {
-        ESP_LOGE(MPU6050_LOG_TAG,
-                 "Read accelerometer data error, error code: %s.",
+        ESP_LOGE(MPU6050_LOG_TAG, "Read accelerometer data error, error code: %s.",
                  esp_err_to_name(ret));
     }
     accel_data_raw[0] = (buffer[0] << 8) | buffer[1];
