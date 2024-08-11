@@ -1,6 +1,6 @@
-#include "esp_err.h"
+#include <stdbool.h>
 
-#include "mpu6050.h"
+#include "esp_err.h"
 
 #define SET 0
 #define GET 1
@@ -94,3 +94,16 @@ int8_t mpu6050_get_y_gyro_offset_tc(void);
  * @brief Return offset of z axis gyroscope.
  */
 int8_t mpu6050_get_z_gyro_offset_tc(void);
+
+/* @brief Write a data block to mpu6050.
+ *
+ * @param[in] data: Data buffer write into mpu6050.
+ * @param[in] data_size: Size of data buffer.
+ * @param[in] bank: Which memory bank will write into.
+ * @param[in] offset_address: Offset address.
+ *
+ * @return
+ *      - Return true if write and verify success.
+ */
+bool mpu6050_write_memory_block(uint8_t *data, uint8_t data_size, uint8_t bank,
+                                uint8_t offset_address);

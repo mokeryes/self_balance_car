@@ -5,6 +5,8 @@
 #include "esp_err.h"
 #include "esp_log.h"
 
+#include "mpu6050.h"
+#include "mpu6050_dmp_data.h"
 #include "mpu6050_6Axis.h"
 
 esp_err_t mpu6050_dmp_init(void) {
@@ -17,19 +19,20 @@ esp_err_t mpu6050_dmp_init(void) {
     mpu6050_mode_sleep(UNSET);
 
     /* Get MPU hardware revision */
-    mpu6050_set_memory_bank(0x10, true, true);  // Select number of 0x10 memory bank
-    mpu6050_set_memory_start_address(0x06);     // Set offset is 0x06
-    mpu6050_read_memory();  // Read data from memory bank 0x10 offset 0x06
+    mpu6050_set_memory_bank(0x10, true, true);    // Select number of 0x10 memory bank
+    mpu6050_set_memory_start_address(0x06);       // Set offset is 0x06
+    mpu6050_read_memory();                        // Read data from memory bank 0x10 offset 0x06
     mpu6050_set_memory_bank(0x00, false, false);  // Select numbder of 0x00 memory bank
 
     /* Check OTP bank valid */
-    mpu6050_get_otp_bank_valid() == true ? printf("OTP valid.\n")
-                                         : printf("OTP invalid.\n");
+    mpu6050_get_otp_bank_valid() == true ? printf("OTP valid.\n") : printf("OTP invalid.\n");
 
     /* Get X/Y/Z gyroscope offset */
     printf("%d\n", mpu6050_get_x_gyro_offset_tc());
     printf("%d\n", mpu6050_get_y_gyro_offset_tc());
     printf("%d\n", mpu6050_get_z_gyro_offset_tc());
+
+    mpu6050_write_memory_block((uint8_t *)dmpMemory, (uint8_t)MPU6050_DMP_CODE_SIZE, 0, 0);
 
     return ret;
 }
@@ -99,8 +102,7 @@ esp_err_t mpu6050_enable(void) {
     if (ret == ESP_OK) {
         ESP_LOGI(MPU6050_LOG_TAG, "MPU6050 enabled.");
     } else {
-        ESP_LOGE(MPU6050_LOG_TAG, "MPU6050 enabling error, error code: %s.",
-                 esp_err_to_name(ret));
+        ESP_LOGE(MPU6050_LOG_TAG, "MPU6050 enabling error, error code: %s.", esp_err_to_name(ret));
     }
 
     return ret;
@@ -128,8 +130,7 @@ esp_err_t mpu6050_init(mpu6050_t *mpu6050) {
         ESP_LOGI(MPU6050_LOG_TAG, "MPU6050 is online.");
     } else {
         ret = ESP_FAIL;
-        ESP_LOGW(MPU6050_LOG_TAG, "MPU6050 is not online, error code: %s.",
-                 esp_err_to_name(ret));
+        ESP_LOGW(MPU6050_LOG_TAG, "MPU6050 is not online, error code: %s.", esp_err_to_name(ret));
     }
 
     return ret;

@@ -32,6 +32,8 @@
 #define MPU6050_YG_OFFS_TC 0x01  //[7] PWR_MODE, [6:1] YG_OFFS_TC, [0] OTP_BNK_VLD
 #define MPU6050_ZG_OFFS_TC 0x02  //[7] PWR_MODE, [6:1] ZG_OFFS_TC, [0] OTP_BNK_VLD
 
+#define MPU6050_DMP_MEMORY_CHUNK_SIZE 16
+
 typedef struct {
     i2c_master_bus_config_t bus_cfg;
     i2c_device_config_t dev_cfg;
