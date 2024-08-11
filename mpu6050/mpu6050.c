@@ -23,12 +23,13 @@ esp_err_t mpu6050_dmp_init(void) {
     mpu6050_set_memory_bank(0x00, false, false);  // Select numbder of 0x00 memory bank
 
     /* Check OTP bank valid */
-    get_otp_bank_valid() == true ? printf("OTP valid.\n") : printf("OTP invalid.\n");
+    mpu6050_get_otp_bank_valid() == true ? printf("OTP valid.\n")
+                                         : printf("OTP invalid.\n");
 
     /* Get X/Y/Z gyroscope offset */
-    printf("%d\n", get_x_gyro_offset_tc());
-    printf("%d\n", get_y_gyro_offset_tc());
-    printf("%d\n", get_z_gyro_offset_tc());
+    printf("%d\n", mpu6050_get_x_gyro_offset_tc());
+    printf("%d\n", mpu6050_get_y_gyro_offset_tc());
+    printf("%d\n", mpu6050_get_z_gyro_offset_tc());
 
     return ret;
 }

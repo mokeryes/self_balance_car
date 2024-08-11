@@ -6,6 +6,8 @@
 #define GET 1
 #define UNSET -1
 
+#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+
 /*
  * @brief Reset MPU6050 for initialize the DMP.
  */
@@ -76,19 +78,19 @@ uint8_t mpu6050_read_memory(void);
  *      - return true if otp bank is valid.
  *        return false if otp bank is invalid.
  */
-bool get_otp_bank_valid(void);
+bool mpu6050_get_otp_bank_valid(void);
 
 /*
  * @brief Return offset of x axis gyroscope.
  */
-int8_t get_x_gyro_offset_tc(void);
+int8_t mpu6050_get_x_gyro_offset_tc(void);
 
 /*
  * @brief Return offset of y axis gyroscope.
  */
-int8_t get_y_gyro_offset_tc(void);
+int8_t mpu6050_get_y_gyro_offset_tc(void);
 
 /*
  * @brief Return offset of z axis gyroscope.
  */
-int8_t get_z_gyro_offset_tc(void);
+int8_t mpu6050_get_z_gyro_offset_tc(void);
