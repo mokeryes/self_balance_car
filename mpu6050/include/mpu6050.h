@@ -24,23 +24,6 @@
 #define MPU6050_GYRO_OUT 0x43
 #define MPU6050_TEMP_OUT 0x41
 
-/* DMP REGS */
-#define MPU6050_BANK_SEL 0x6D
-#define MPU6050_MEM_START_ADDR 0x6E
-#define MPU6050_MEM 0x6F
-#define MPU6050_XG_OFFS_TC 0x00  //[7] PWR_MODE, [6:1] XG_OFFS_TC, [0] OTP_BNK_VLD
-#define MPU6050_YG_OFFS_TC 0x01  //[7] PWR_MODE, [6:1] YG_OFFS_TC, [0] OTP_BNK_VLD
-#define MPU6050_ZG_OFFS_TC 0x02  //[7] PWR_MODE, [6:1] ZG_OFFS_TC, [0] OTP_BNK_VLD
-
-#define MPU6050_DMP_MEMORY_CHUNK_SIZE 16
-
-typedef struct {
-    i2c_master_bus_config_t bus_cfg;
-    i2c_device_config_t dev_cfg;
-} mpu6050_t;
-
-esp_err_t mpu6050_dmp_init(void);
-
 /*
  * @brief Read mpu6050 temperature.
  *
@@ -106,4 +89,4 @@ esp_err_t mpu6050_enable(void);
  * argument.
  *      - ESP_ERR_NO_MEM: Create I2C bus failed because of out of memory.
  */
-esp_err_t mpu6050_init(mpu6050_t *mpu6050);
+esp_err_t mpu6050_init(void);

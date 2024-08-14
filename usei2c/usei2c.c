@@ -9,7 +9,9 @@
 
 #include "usei2c.h"
 
-static usei2c_config_t usei2c;
+static usei2c_config_t *usei2c;
+static i2c_master_dev_handle_t dev_handle;
+static i2c_master_bus_handle_t bus_handle;
 
 esp_err_t usei2c_read_reg_burst(uint8_t reg_addr, uint8_t *data, size_t data_len) {
     esp_err_t ret = ESP_FAIL;
@@ -24,7 +26,7 @@ esp_err_t usei2c_read_reg_burst(uint8_t reg_addr, uint8_t *data, size_t data_len
     uint8_t *buffer = (uint8_t *)malloc((size_t)(sizeof(uint8_t) * 1));
     memcpy(buffer, &reg_addr, 1);
 
-    ret = i2c_master_transmit_receive(usei2c.dev_handle, buffer, 1, data, data_len, 1000);
+    ret = i2c_master_transmit_receive(dev_handle, buffer, 1, data, data_len, 1000);
     free(buffer);
     if (ret != ESP_OK) {
         ESP_LOGE(USEI2C_LOG_TAG, "Read data from register error, error code: %s",
@@ -52,7 +54,7 @@ esp_err_t usei2c_write_reg_burst(uint8_t reg_addr, const uint8_t *data, size_t d
     memcpy(buffer, &reg_addr, 1);
     memcpy(buffer + 1, data, 1);
 
-    ret = i2c_master_transmit(usei2c.dev_handle, buffer, data_len, 1000);
+    ret = i2c_master_transmit(dev_handle, buffer, data_len, 1000);
     free(buffer);
     if (ret != ESP_OK) {
         ESP_LOGE(USEI2C_LOG_TAG, "Write data into device error, error code: %s",
@@ -160,9 +162,9 @@ esp_err_t usei2c_write_bit(uint8_t reg_addr, uint8_t bit_num, uint8_t bit_data) 
 esp_err_t usei2c_init(usei2c_config_t *usei2c_cfg) {
     esp_err_t ret = ESP_FAIL;
 
-    usei2c = *usei2c_cfg;
+    usei2c = usei2c_cfg;
 
-    ret = i2c_new_master_bus(&usei2c.bus_cfg, &usei2c.bus_handle);
+    ret = i2c_new_master_bus(&usei2c->bus_cfg, &bus_handle);
     if (ret != ESP_OK) {
         ESP_LOGE(USEI2C_LOG_TAG, "Error occured in new master bus, error code: %s",
                  esp_err_to_name(ret));
@@ -171,7 +173,7 @@ esp_err_t usei2c_init(usei2c_config_t *usei2c_cfg) {
 
     vTaskDelay(pdMS_TO_TICKS(10));
 
-    ret = i2c_master_bus_add_device(usei2c.bus_handle, &usei2c.dev_cfg, &usei2c.dev_handle);
+    ret = i2c_master_bus_add_device(bus_handle, &usei2c->dev_cfg, &dev_handle);
     if (ret != ESP_OK) {
         ESP_LOGE(USEI2C_LOG_TAG, "Error occured in add device into master bus, error code: %s",
                  esp_err_to_name(ret));

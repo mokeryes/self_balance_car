@@ -6,36 +6,6 @@
 #include "esp_log.h"
 
 #include "mpu6050.h"
-#include "mpu6050_dmp_data.h"
-#include "mpu6050_6Axis.h"
-
-esp_err_t mpu6050_dmp_init(void) {
-    esp_err_t ret = ESP_FAIL;
-
-    /* Reset mpu6050 */
-    mpu6050_enable();
-
-    /* Disable sleep mode */
-    mpu6050_mode_sleep(UNSET);
-
-    /* Get MPU hardware revision */
-    mpu6050_set_memory_bank(0x10, true, true);    // Select number of 0x10 memory bank
-    mpu6050_set_memory_start_address(0x06);       // Set offset is 0x06
-    mpu6050_read_memory();                        // Read data from memory bank 0x10 offset 0x06
-    mpu6050_set_memory_bank(0x00, false, false);  // Select numbder of 0x00 memory bank
-
-    /* Check OTP bank valid */
-    mpu6050_get_otp_bank_valid() == true ? printf("OTP valid.\n") : printf("OTP invalid.\n");
-
-    /* Get X/Y/Z gyroscope offset */
-    printf("%d\n", mpu6050_get_x_gyro_offset_tc());
-    printf("%d\n", mpu6050_get_y_gyro_offset_tc());
-    printf("%d\n", mpu6050_get_z_gyro_offset_tc());
-
-    mpu6050_write_memory_block((uint8_t *)dmpMemory, (uint8_t)MPU6050_DMP_CODE_SIZE, 0, 0);
-
-    return ret;
-}
 
 double mpu6050_read_temp(void) {
     double temp = -404.0f;
@@ -108,21 +78,21 @@ esp_err_t mpu6050_enable(void) {
     return ret;
 }
 
-esp_err_t mpu6050_init(mpu6050_t *mpu6050) {
+esp_err_t mpu6050_init() {
     esp_err_t ret = ESP_FAIL;
 
-    i2c_master_bus_handle_t bus_handle = NULL;
-    i2c_master_dev_handle_t dev_handle = NULL;
     usei2c_config_t usei2c_cfg = {
-        .bus_cfg = mpu6050->bus_cfg,
-        .bus_handle = bus_handle,
+        .bus_cfg.i2c_port = -1,
+        .bus_cfg.sda_io_num = MPU6050_PIN_SDA,
+        .bus_cfg.scl_io_num = MPU6050_PIN_SCL,
+        .bus_cfg.clk_source = I2C_CLK_SRC_DEFAULT,
+        .bus_cfg.glitch_ignore_cnt = 7,
 
-        .dev_cfg = mpu6050->dev_cfg,
-        .dev_handle = dev_handle,
+        .dev_cfg.dev_addr_length = I2C_ADDR_BIT_7,
+        .dev_cfg.device_address = MPU6050_ADDR,
+        .dev_cfg.scl_speed_hz = MPU6050_FREQ,
     };
     ret = usei2c_init(&usei2c_cfg);
-    bus_handle = usei2c_cfg.bus_handle;
-    dev_handle = usei2c_cfg.dev_handle;
 
     uint8_t whoami = usei2c_read_reg(MPU6050_WHO_AM_I);
     if (whoami == MPU6050_ADDR) {

@@ -10,10 +10,7 @@
 
 typedef struct {
     i2c_master_bus_config_t bus_cfg;
-    i2c_master_bus_handle_t bus_handle;
-
     i2c_device_config_t dev_cfg;
-    i2c_master_dev_handle_t dev_handle;
 
 } usei2c_config_t;
 
