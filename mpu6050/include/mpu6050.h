@@ -24,19 +24,55 @@
 #define MPU6050_GYRO_OUT 0x43
 #define MPU6050_TEMP_OUT 0x41
 
+#define RAD_TO_DEG 57.29577951308232087679815481410
+
+typedef struct {
+    int16_t accel_x_raw;
+    int16_t accel_y_raw;
+    int16_t accel_z_raw;
+    float ax;
+    float ay;
+    float az;
+
+    int16_t gyro_x_raw;
+    int16_t gyro_y_raw;
+    int16_t gyro_z_raw;
+    float gx;
+    float gy;
+    float gz;
+
+    float temperature;
+
+    float kalman_angle_x;
+    float kalman_angle_y;
+} mpu6050_t;
+
+typedef struct {
+    float Q_angle;
+    float Q_bias;
+    float R_measure;
+    float angle;
+    float bias;
+    float P[2][2];
+} Kalman_t;
+
+float Kalman_getAngle(Kalman_t *Kalman, float newAngle, float newRate, float dt);
+
+void mpu6050_kalman(mpu6050_t *mpu6050);
+
 /*
  * @brief Read mpu6050 temperature.
  *
  * @return
- *      - temp: Double type value of temperature if read success.
+ *      - temp: float type value of temperature if read success.
  *              Return -404.0 if read failed.
  */
-double mpu6050_read_temp(void);
+esp_err_t mpu6050_read_temp(mpu6050_t *mpu6050);
 
 /*
  * @brief Read raw gyroscope data from mpu6050.
  *
- * @param[out] gyro_data_raw: Buffer to store the data read from mpu6050.
+ * @param[out] mpu6050: Struct to store the data read from mpu.
  *
  * @return
  *      - ESP_OK: I2C master transmit-receive success
@@ -44,12 +80,12 @@ double mpu6050_read_temp(void);
  *      - ESP_ERR_TIMEOUT: Operation timeout(larger than xfer_timeout_ms)
  *                         because the bus is busy or hardware crash.
  */
-esp_err_t mpu6050_read_gyro_raw(uint16_t *gyro_data_raw);
+esp_err_t mpu6050_read_gyro_raw(mpu6050_t *mpu6050);
 
 /*
  * @brief Read raw accelerometer data from mpu6050.
  *
- * @param[out] accel_raw_data: Buffer to store the data read from mpu6050.
+ * @param[out] mpu6050: Struct to store the data read from mpu.
  *
  * @return
  *      - ESP_OK: I2C master transmit-receive success
@@ -57,7 +93,7 @@ esp_err_t mpu6050_read_gyro_raw(uint16_t *gyro_data_raw);
  *      - ESP_ERR_TIMEOUT: Operation timeout(larger than xfer_timeout_ms)
  *                         because the bus is busy or hardware crash.
  */
-esp_err_t mpu6050_read_accel_raw(uint16_t *accel_data_raw);
+esp_err_t mpu6050_read_accel_raw(mpu6050_t *mpu6050);
 
 /*
  * @brief Enable mpu6050 with register command.
