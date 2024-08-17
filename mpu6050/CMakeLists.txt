@@ -1,8 +1,13 @@
 idf_component_register(
     SRCS
         "mpu6050.c"
-        "time.c"
-    INCLUDE_DIRS "include"
+        "mpu6050_dmp.c"
+        "include/imu/inv_imu_apex.c"
+        "include/imu/inv_imu_transport.c"
+        "include/imu/inv_imu_driver.c"
+        "include/imu/inv_time.c"
+    INCLUDE_DIRS
+        "include"
     REQUIRES
         usei2c
         esp_timer

@@ -1,29 +1,7 @@
 #include "esp_err.h"
 
+#include "mpu6050_regs.h"
 #include "usei2c.h"
-#include "imu/inv_imu.h"
-
-#define MPU6050_LOG_TAG "MPU6050"
-
-/* I2C */
-#define MPU6050_PIN_SCL 21
-#define MPU6050_PIN_SDA 22
-#define MPU6050_PIN_CS 23
-#define MPU6050_FREQ 400000
-
-/* MPU6050 BASIC REGS */
-#define MPU6050_ADDR 0x68
-#define MPU6050_WHO_AM_I 0x75
-#define MPU6050_PWR_MGMT_1 0x6B
-#define MPU6050_PWR_MGMT_2 0x6C
-#define MPU6050_SMPLRT_DIV 0x19
-#define MPU6050_CONFIG 0x1A
-#define MPU6050_ACCEL_CONFIG 0x1C
-#define MPU6050_GYRO_CONFIG 0x1B
-
-#define MPU6050_ACCEL_OUT 0x3B
-#define MPU6050_GYRO_OUT 0x43
-#define MPU6050_TEMP_OUT 0x41
 
 #define RAD_TO_DEG 57.29577951308232087679815481410
 

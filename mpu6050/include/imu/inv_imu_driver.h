@@ -57,7 +57,7 @@ extern "C" {
 #endif
 
 /** Max buffer size mirrored from FIFO at polling time */
-#define FIFO_MIRRORING_SIZE 16 * 258 // packet size * max_count = 4kB
+#define FIFO_MIRRORING_SIZE 16 * 258  // packet size * max_count = 4kB
 
 /** Sensor identifier for UI control function */
 enum inv_imu_sensor {
@@ -277,8 +277,8 @@ int inv_imu_get_gyro_fsr(inv_imu_device_t *s, GYRO_CONFIG0_FS_SEL_t *gyro_fsr_dp
 
 /** @brief Enable fsync tagging functionality.
  *         * Enables fsync.
- *         * Enables timestamp to registers. Once fsync is enabled fsync counter is pushed to
- *           FIFO instead of timestamp. So timestamp is made available in registers. Note that
+ *         * Enables timestamp to registers. Once fsync is enabled fsync counter is pushed
+ * to FIFO instead of timestamp. So timestamp is made available in registers. Note that
  *           this increase power consumption.
  *         * Enables fsync related interrupt.
  *  @param[in] s  Pointer to device.
@@ -288,9 +288,9 @@ int inv_imu_enable_fsync(inv_imu_device_t *s);
 
 /** @brief Disable fsync tagging functionality.
  *         * Disables fsync.
- *         * Disables timestamp to registers. Once fsync is disabled  timestamp is pushed to FIFO
- *           instead of fsync counter. So in order to decrease power consumption, timestamp is no
- *           more available in registers.
+ *         * Disables timestamp to registers. Once fsync is disabled  timestamp is pushed
+ * to FIFO instead of fsync counter. So in order to decrease power consumption, timestamp
+ * is no more available in registers.
  *         * Disables fsync related interrupt.
  *  @param[in] s  Pointer to device.
  *  @return       0 on success, negative value on error.
@@ -303,7 +303,8 @@ int inv_imu_disable_fsync(inv_imu_device_t *s);
  *  @param[in] slew_rate  Requested slew-rate.
  *  @return               0 on success, negative value on error.
  */
-int inv_imu_set_spi_slew_rate(inv_imu_device_t *s, const DRIVE_CONFIG3_SPI_SLEW_RATE_t slew_rate);
+int inv_imu_set_spi_slew_rate(inv_imu_device_t *s,
+                              const DRIVE_CONFIG3_SPI_SLEW_RATE_t slew_rate);
 
 /** @brief Configure INT1 pin behavior.
  *  @param[in] s     Pointer to device.
@@ -415,7 +416,8 @@ int inv_imu_disable_high_resolution_fifo(inv_imu_device_t *s);
  *  @param[in] s            Pointer to device.
  *  @param[in] fifo_config  FIFO configuration method.
  *                          Enabled: data are pushed to FIFO and FIFO THS interrupt is set.
- *                          Disabled: data are not pushed to FIFO and DRDY interrupt is set.
+ *                          Disabled: data are not pushed to FIFO and DRDY interrupt is
+ * set.
  *  @return                 0 on success, negative value on error.
  */
 int inv_imu_configure_fifo(inv_imu_device_t *s, INV_IMU_FIFO_CONFIG_t fifo_config);
@@ -432,8 +434,8 @@ uint32_t inv_imu_get_timestamp_resolution_us(inv_imu_device_t *s);
  *  @param[in] wom_y_th  Threshold value for the Wake on Motion Interrupt for Y-axis accel.
  *  @param[in] wom_z_th  Threshold value for the Wake on Motion Interrupt for Z-axis accel.
  *  @param[in] wom_int   Select which mode between AND/OR is used to generate interrupt.
- *  @param[in] wom_dur   Select the number of over-threshold events to wait before generating
- *                       interrupt.
+ *  @param[in] wom_dur   Select the number of over-threshold events to wait before
+ * generating interrupt.
  *  @return              0 on success, negative value on error.
  */
 int inv_imu_configure_wom(inv_imu_device_t *s, const uint8_t wom_x_th, const uint8_t wom_y_th,
@@ -442,9 +444,9 @@ int inv_imu_configure_wom(inv_imu_device_t *s, const uint8_t wom_x_th, const uin
 
 /** @brief Enable Wake On Motion.
  *         WoM requests to have the accelerometer enabled to work.
- *         As a consequence FIFO water-mark interrupt is disabled to only trigger WoM interrupts.
- *         To have good performance, it's recommended to set accel ODR to 20 ms and in Low Power
- *         Mode.
+ *         As a consequence FIFO water-mark interrupt is disabled to only trigger WoM
+ * interrupts. To have good performance, it's recommended to set accel ODR to 20 ms and in
+ * Low Power Mode.
  *  @param[in] s  Pointer to device.
  *  @return       0 on success, negative value on error.
  */
